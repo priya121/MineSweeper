@@ -1,58 +1,52 @@
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class MineSweeperTest {
+
     @Test
-    public void emptyCellIsZero() {
-        ArrayList<String> grid = new ArrayList<>();
-        ArrayList<String> expectedGrid = new ArrayList<>();
-        expectedGrid.add("0");
-        assertEquals(expectedGrid, MineSweeper.gridState(grid, "0", 1));
+    public void oneByOneGridIsEmpty() {
+        MineSweeper game = new MineSweeper(1);
+        assertTrue(game.checkEmpty(0));
     }
 
     @Test
-    public void cellWithMineIsSymbol() {
-        ArrayList<String> grid = new ArrayList<>();
-        ArrayList<String> expectedGrid = new ArrayList<>();
-        expectedGrid.add("*");
-        assertEquals(expectedGrid, MineSweeper.gridState(grid, "*", 1));
+    public void oneByOneGridWithMine() {
+        ArrayList<Integer> mineLocations = new ArrayList<>();
+        mineLocations.add(0);
+        MineSweeper game = new MineSweeper(1, mineLocations);
+        assertFalse(game.checkEmpty(0));
     }
 
     @Test
-    public void emptyTwoByTwoGrid() {
-        ArrayList<String> grid = new ArrayList<>();
-        ArrayList<String> expectedGrid = new ArrayList<>();
-        expectedGrid.add("0");
-        expectedGrid.add("0");
-        expectedGrid.add("0");
-        expectedGrid.add("0");
-        assertEquals(expectedGrid, MineSweeper.gridState(grid, "0 0 0 0", 4));
+    public void twoByTwoGridWithOneMine() {
+        ArrayList<Integer> mineLocations = new ArrayList<>();
+        mineLocations.add(0);
+        MineSweeper game = new MineSweeper(2,mineLocations);
+        assertFalse(game.checkEmpty(0));
     }
 
     @Test
-    public void twoByTwoGridWithAMine() {
-        ArrayList<String> grid = new ArrayList<>();
-        ArrayList<String> expectedGrid = new ArrayList<>();
-        expectedGrid.add("*");
-        expectedGrid.add("1");
-        expectedGrid.add("1");
-        expectedGrid.add("1");
-        assertEquals(expectedGrid, MineSweeper.gridState(grid, "* 0 0 0", 4));
-    }
-
-    @Test
-    @Ignore
     public void twoByTwoGridWithTwoMines() {
-        ArrayList<String> grid = new ArrayList<>();
-        ArrayList<String> expectedGrid = new ArrayList<>();
-        expectedGrid.add("*");
-        expectedGrid.add("*");
-        expectedGrid.add("2");
-        expectedGrid.add("2");
-        assertEquals(expectedGrid, MineSweeper.gridState(grid, "* * 0 0", 4));
+        ArrayList<Integer> mineLocations = new ArrayList<>();
+        mineLocations.add(0);
+        mineLocations.add(1);
+        MineSweeper game = new MineSweeper(2,mineLocations);
+        assertFalse(game.checkEmpty(0));
+        assertFalse(game.checkEmpty(1));
+    }
+
+    @Test
+    public void twoByTWoGridWithTwoMinesNotAdjacent() {
+        ArrayList<Integer> mineLocations = new ArrayList<>();
+        mineLocations.add(0);
+        mineLocations.add(2);
+        MineSweeper game = new MineSweeper(2,mineLocations);
+        assertFalse(game.checkEmpty(0));
+        assertFalse(game.checkEmpty(2));
     }
 }
+

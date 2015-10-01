@@ -1,20 +1,20 @@
 import java.util.ArrayList;
 
 public class MineSweeper {
-    public static ArrayList<String> gridState(ArrayList<String> grid, String state, int size) {
-        for (int i = 0; i <= size - 1; i++) {
-            String individualCellState = state.split(" ")[i];
-            if (individualCellState.equals("*") && (i < size -1)) {
-                grid.add(individualCellState);
-                grid.add(i + 1, "1");
-                grid.add(i + 2, "1");
-                grid.add(i + 3, "1");
-                return grid;
-            }
-            else {
-                grid.add(individualCellState);
-            }
-        }
-        return grid;
+
+    private ArrayList<Integer> mineLocations = new ArrayList<>();
+    private ArrayList<String> grid = new ArrayList<>();
+
+    public MineSweeper(int size) {
+        mineLocations.add(-1);
+    }
+
+    public MineSweeper(int size, ArrayList<Integer> mineLocations) {
+        this.mineLocations = mineLocations;
+    }
+
+    public boolean checkEmpty(int location) {
+        return !mineLocations.contains(location);
     }
 }
+
