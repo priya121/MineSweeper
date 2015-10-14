@@ -63,7 +63,6 @@ public class MineSweeperTest {
     }
 
     @Test
-    @Ignore
     public void numberOfMinesAroundOneMine() {
         mineLocations.add(0);
         MineSweeper game = new MineSweeper(4, mineLocations);
@@ -74,7 +73,6 @@ public class MineSweeperTest {
     }
 
     @Test
-    @Ignore
     public void numberOfMinesAroundOneMineAtIndex1() {
         MineSweeper game = new MineSweeper(4, mineLocations);
         mineLocations.add(1);
@@ -85,114 +83,13 @@ public class MineSweeperTest {
     }
 
     @Test
-    public void allCoordinatesInTwoByTwoWithMine() {
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        indicesAroundMine.add(1);
-        indicesAroundMine.add(2);
-        indicesAroundMine.add(3);
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        mineLocations.add(0);
-        assertEquals(indicesAroundMine, game.indicesAroundMine());
-    }
-
-    @Test
-    public void numbersAroundMineAtLocation1() {
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        indicesAroundMine.add(0);
-        indicesAroundMine.add(2);
-        indicesAroundMine.add(3);
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        mineLocations.add(1);
-        assertEquals(indicesAroundMine, game.indicesAroundMine());
-    }
-
-    @Test
-    public void numbersAroundMineAtLocation2() {
-        ArrayList<Integer> mineLocations = new ArrayList<>();
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        indicesAroundMine.add(0);
-        indicesAroundMine.add(1);
-        indicesAroundMine.add(3);
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        mineLocations.add(2);
-        assertEquals(indicesAroundMine, game.indicesAroundMine());
-    }
-
-    @Test
-    public void numbersAroundMineAtLocation3() {
-        ArrayList<Integer> mineLocations = new ArrayList<>();
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        indicesAroundMine.add(0);
-        indicesAroundMine.add(1);
-        indicesAroundMine.add(2);
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        mineLocations.add(3);
-        assertEquals(indicesAroundMine, game.indicesAroundMine());
-    }
-
-    @Test
-    public void indicesAroundTwoMines() {
-        ArrayList<Integer> mineLocations = new ArrayList<>();
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        indicesAroundMine.add(2);
-        indicesAroundMine.add(3);
-        indicesAroundMine.add(2);
-        indicesAroundMine.add(3);
-        mineLocations.add(0);
-        mineLocations.add(1);
-        ArrayList<Integer> indicesAroundIndividualMines = game.indicesAroundMine();
-        assertEquals(indicesAroundMine, game.removeIndicesWithMines(4, indicesAroundIndividualMines));
-    }
-
-    @Test
-    public void indicesAroundTwoMinesNotAdjacent() {
-        ArrayList<Integer> mineLocations = new ArrayList<>();
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        indicesAroundMine.add(0);
-        indicesAroundMine.add(3);
-        indicesAroundMine.add(0);
-        indicesAroundMine.add(3);
-        mineLocations.add(1);
-        mineLocations.add(2);
-        ArrayList<Integer> indicesAroundIndividualMines = game.indicesAroundMine();
-        assertEquals(indicesAroundMine, game.removeIndicesWithMines(4, indicesAroundIndividualMines));
-    }
-
-    @Test
-    public void indicesAroundThreeMines() {
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        indicesAroundMine.add(3);
-        indicesAroundMine.add(3);
-        indicesAroundMine.add(3);
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        mineLocations.add(0);
-        mineLocations.add(1);
-        mineLocations.add(2);
-        ArrayList<Integer> indicesAroundIndividualMines = game.indicesAroundMine();
-        assertEquals(indicesAroundMine, game.removeIndicesWithMines(4, indicesAroundIndividualMines));
-    }
-
-    @Test
-    public void indicesAroundFourMines() {
-        ArrayList<Integer> indicesAroundMine = new ArrayList<>();
-        MineSweeper game = new MineSweeper(4, mineLocations);
-        mineLocations.add(0);
-        mineLocations.add(1);
-        mineLocations.add(2);
-        mineLocations.add(3);
-        ArrayList<Integer> indicesAroundIndividualMines = game.indicesAroundMine();
-        assertEquals(indicesAroundMine, game.removeIndicesWithMines(4, indicesAroundIndividualMines));
-    }
-
-    @Test
     public void allCoordinatesForThreeByThree() {
         MineSweeper game = new MineSweeper(9, mineLocations);
         assertTrue(game.isEmpty(0));
     }
 
     @Test
+    @Ignore
     public void threeByThreeWithAMine() {
         MineSweeper game = new MineSweeper(9, mineLocations);
         assertTrue(game.isEmpty(0));
@@ -204,6 +101,8 @@ public class MineSweeperTest {
         assertEquals(1, game.numberOfMinesAround(4));
         assertEquals(1, game.numberOfMinesAround(5));
         assertEquals(0, game.numberOfMinesAround(6));
+        assertEquals(0, game.numberOfMinesAround(7));
+        assertEquals(0, game.numberOfMinesAround(8));
     }
 
     @Test
@@ -249,4 +148,3 @@ public class MineSweeperTest {
         assertEquals(neighbours, game.neighbourCells(6));
     }
 }
-
