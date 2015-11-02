@@ -1,44 +1,48 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NeighbourCalculation {
     int width;
     int height;
-    ArrayList<Integer> neighbours = new ArrayList<>();
-    private ArrayList<Integer> mineLocations;
-    private int location;
+    int location;
+    ArrayList<Integer> neighbours;
 
-    public NeighbourCalculation(int location, ArrayList mineLocations) {
+    public NeighbourCalculation(int size, int location) {
+        this.width = (int) Math.sqrt(size);
+        this.height = (int) Math.sqrt(size);
         this.location = location;
-        this.mineLocations = mineLocations;
-        this.width = (int) Math.sqrt(MineSweeper.size);
-        this.height = (int) Math.sqrt(MineSweeper.size);
     }
 
-    public ArrayList<Integer> calculate(int location) {
+    public List<Integer> calculate() {
+        this.neighbours = new ArrayList<>();
         int xLocation = (location % width);
         int yLocation = (location / height);
 
-        notTopLeftCorner(this.location, xLocation);
-
-        notFirstRow(this.location, yLocation);
-
-        notTopRightCorner(this.location, xLocation, yLocation);
-
-        notFirstColumn(xLocation, this.location - 1);
-
-        notLastColumn(this.location, xLocation);
-
-        notBottomLeftCorner(this.location, xLocation, yLocation);
-
-        notBottomRow(this.location, yLocation);
-
-        notBottomRightCorner(this.location, xLocation, yLocation);
+        anyTopRowNeighbours(xLocation, yLocation);
+        anyEdgeColumnNeighbours(xLocation);
+        anyBottomNeighbours(xLocation, yLocation);
 
         return neighbours;
     }
 
+    private void anyBottomNeighbours(int xLocation, int yLocation) {
+        notBottomLeftCorner(location, xLocation, yLocation);
+        notBottomRow(location, yLocation);
+        notBottomRightCorner(location, xLocation, yLocation);
+    }
+
+    private void anyEdgeColumnNeighbours(int xLocation) {
+        notFirstColumn(xLocation, location - 1);
+        notLastColumn(location, xLocation);
+    }
+
+    private void anyTopRowNeighbours(int xLocation, int yLocation) {
+        notTopLeftCorner(location, xLocation);
+        notFirstRow(location, yLocation);
+        notTopRightCorner(location, xLocation, yLocation);
+    }
 
     private void notBottomRightCorner(int location, int xLocation, int yLocation) {
         if (xLocation < width - 1 && yLocation < height - 1)
@@ -60,9 +64,9 @@ public class NeighbourCalculation {
             neighbours.add(location + 1);
     }
 
-    private void notFirstColumn(int xLocation, int e) {
+    private void notFirstColumn(int xLocation, int location) {
         if (xLocation > 0)
-            neighbours.add(e);
+            neighbours.add(location);
     }
 
     private void notTopRightCorner(int location, int xLocation, int yLocation) {
@@ -79,8 +83,6 @@ public class NeighbourCalculation {
         if (xLocation > 0 && location > 1)
             neighbours.add((location - (width) - 1));
     }
-
-
 }
 
 
